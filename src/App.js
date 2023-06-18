@@ -1,29 +1,39 @@
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react'
+import Result from './Result'
+class App extends Component{
+static defaultProps = {
+secret : Math.floor(Math.random() * 20) + 1
 }
-
-export default App;
+constructor(props){
+super(props)
+this.state = { term : '' }
+this.handleChange = this.handleChange.bind(this)
+}
+handleChange(event){
+this.setState({
+[event.target.name] : event.target.value
+})
+}
+render(){
+return (
+<div>
+<div>
+<label htmlFor='term'>
+Guess Number between 1 to 20
+</label>
+</div>
+<input
+id='term'
+type='text'
+name='term'
+value={this.state.term}
+onChange={this.handleChange}
+/>
+<Result term={this.state.term}
+secretNum={this.props.secret} />
+</div>
+)
+}
+}
+export default App
